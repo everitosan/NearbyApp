@@ -22,8 +22,6 @@ export default class ItemRequest extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: '#E8E9EA',
-    borderBottomWidth: 1,
     justifyContent: 'center',
     height: 66
   },
