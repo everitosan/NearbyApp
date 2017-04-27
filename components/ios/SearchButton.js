@@ -24,8 +24,12 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#E8E9EA',
-    height: 60
+    backgroundColor: 'rgba(255,255,255,.2)',
+    height: 60,
+    position: 'absolute',
+    bottom: 4,
+    left: 0,
+    width: '100%'
   },
   buttonContainer: {
     width: 54,

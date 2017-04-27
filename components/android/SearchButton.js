@@ -22,21 +22,23 @@ export default class SearchButton extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     backgroundColor: '#E8E9EA',
-    height: 60
+    height: 60,
+    bottom: 16,
+    right: 16,
+    width: 54,
+    height: 54,
+    borderRadius: 26,
+    elevation: 4
   },
   buttonContainer: {
     width: 54,
     height: 54,
     borderRadius: 26,
     shadowOpacity: 0.4,
-    shadowOffset: {
-      height: 0,
-      width: 0
-    },
-    elevation: 2,
     backgroundColor: '#DE2B76',
     justifyContent: 'center',
     alignItems: 'center'
