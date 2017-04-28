@@ -5,9 +5,11 @@ import {
   View,
   Image,
   StatusBar,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {Actions} from 'react-native-router-flux';
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -15,13 +17,20 @@ export default class NavBar extends Component {
 
     StatusBar.setBarStyle('light-content', true);
   }
+
+  goBack () {
+    Actions.pop({});
+  }
+
   render() {
     return (
       <View style={styles.mainContainer} >
         <View style={styles.iosSpacer} ></View>
         <View style={styles.container}>
           { this.props.backButton ? (
-            <Icon name="angle-left" size={30} color="#FFF" />
+            <TouchableOpacity onPress={ ()=> this.goBack() } >
+              <Icon name="angle-left" size={30} color="#FFF" />
+            </TouchableOpacity>
           ):(
             <Icon name="angle-left" size={30} color="#262728" />
           )}
