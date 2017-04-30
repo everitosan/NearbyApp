@@ -6,7 +6,8 @@ const colors = {
   'accent2Clear': '#E78DB0',
   'iconColor': '#ECECEC',
   'textColor': '#4F5659',
-  'lineColor': '#E8E9EA'
+  'lineColor': '#E8E9EA',
+  'white': '#F2F2F2'
 };
 
 export default colors;

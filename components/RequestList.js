@@ -4,9 +4,11 @@ import {
   Text,
   StyleSheet,
   ListView,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native';
 import ItemRequest from './itemRequest';
+import {Actions} from 'react-native-router-flux';
 
 class ListFooter extends Component {
   render () {
@@ -22,8 +24,8 @@ export default class RequestList extends Component {
     super(props);
 
     const Request = {
-      article: "Bicicleta",
-      description: "Necesito una bicileta grande y azul con velocidades extremas y",
+      article: "Suéter",
+      description: "Busco un suéter talla mediana para regalo de navidad. Me gustaría algo con dibujos animados o con colores llamativos.",
       date: "03-Feb-2017",
       active: true
     };
@@ -34,11 +36,20 @@ export default class RequestList extends Component {
       dataSource: ds.cloneWithRows(Requests)
     };
   }
+
+  goDetail(request) {
+    Actions.requestDetail({request: request});
+  }
+
   render() {
     return (
       <ListView style={styles.container}
         dataSource= {this.state.dataSource}
-        renderRow={(rowData)=> <ItemRequest request={rowData}/>  }
+        renderRow={(rowData)=> { return (
+          <TouchableOpacity onPress={ () => this.goDetail(rowData)}  >
+            <ItemRequest request={rowData}/>
+          </TouchableOpacity>)
+        }}
         renderSeparator={(sectionId, rowId)=>  <View key={rowId} style={styles.separator} /> }
         renderFooter = { () => <ListFooter/> }
       />

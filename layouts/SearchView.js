@@ -52,14 +52,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: colors.white
   },
   instructions: {
     backgroundColor: colors.primary,
     padding: 16,
     color: '#FFF',
-    fontSize: 16,
-    textAlign: 'justify'
+    fontSize: 15,
+    textAlign: 'justify',
+    fontWeight: '100',
+    lineHeight: 18
   },
   InputLabel: {
     fontSize: 16,

@@ -22,30 +22,32 @@ export default class SettingsView extends Component {
       picture: "https://scontent-dft4-2.cdninstagram.com/t51.2885-19/s150x150/17076298_1448529028525613_7344673176019795968_a.jpg"
     };
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <NavBar settingsButton={false} backButton={true} />
-        <SectionHeader title="Concurrencia" />
-        <SettingRow concept="Mantener la búsqueda hasta seleccionar un vendedor." />
+        <ScrollView>
+          <SectionHeader title="Concurrencia" />
+          <SettingRow concept="Mantener la búsqueda hasta seleccionar un vendedor." />
 
-        <SectionHeader title="Notificaciones" />
-        <SettingRow concept="Recibir de solicitantes" />
+          <SectionHeader title="Notificaciones" />
+          <SettingRow concept="Recibir de solicitantes" />
 
-        <SectionHeader title="Datos de contacto" />
-        <ContactData data = {userData} />
+          <SectionHeader title="Datos de contacto" />
+          <ContactData data = {userData} />
 
-        <SectionHeader title="Paquete" />
-        <SettingRow concept="Usuario Premium" />
+          <SectionHeader title="Paquete" />
+          <SettingRow concept="Usuario Premium" />
 
-        <SectionHeader title="Legal" />
-        <View style={styles.legalContainer} >
-          <TouchableHighlight>
-            <Text style={[styles.links, {paddingBottom: 10}]}> Aviso de privacidad </Text>
-          </TouchableHighlight>
-          <TouchableHighlight>
-            <Text style={styles.links}> Términos del servicio </Text>
-          </TouchableHighlight>
-        </View>
-      </ScrollView>
+          <SectionHeader title="Legal" />
+          <View style={styles.legalContainer} >
+            <TouchableHighlight>
+              <Text style={[styles.links, {paddingBottom: 10}]}> Aviso de privacidad </Text>
+            </TouchableHighlight>
+            <TouchableHighlight>
+              <Text style={styles.links}> Términos del servicio </Text>
+            </TouchableHighlight>
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
