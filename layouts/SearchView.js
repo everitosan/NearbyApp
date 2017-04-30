@@ -3,10 +3,12 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput
+  TextInput,
+  Platform
 } from 'react-native';
 import NavBar from '../components/NavBar';
 import SendButton from '../components/SendButton';
+import colors from '../components/colors';
 
 export default class SearchView extends Component {
   render() {
@@ -19,7 +21,7 @@ export default class SearchView extends Component {
           <View style={styles.InputsRow}>
             <Text style={styles.InputLabel}> Artículo </Text>
             <TextInput
-            style={styles.articleInput}
+            style={[styles.inputStyle, styles.articleInput]}
             maxLength={100}
             />
           </View>
@@ -27,7 +29,7 @@ export default class SearchView extends Component {
           <View style={styles.InputsRow}>
             <Text style={styles.InputLabel}> Descripción (140 caracteres) </Text>
             <TextInput
-            style={styles.descriptionInput}
+            style={[styles.inputStyle , styles.descriptionInput]}
             multiline={true}
             maxLength={140}
             />
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   instructions: {
-    backgroundColor: '#DE2B76',
+    backgroundColor: colors.primary,
     padding: 16,
     color: '#FFF',
     fontSize: 16,
@@ -59,22 +61,30 @@ const styles = StyleSheet.create({
   InputLabel: {
     fontSize: 16,
     marginBottom: 6,
-    color: '#4F5659'
+    color: colors.textColor
   },
+
   articleInput:  {
-    borderColor: '#E8E9EA',
-    borderWidth: 1,
-    height: 30,
-    fontSize: 14,
-    padding: 4
+    height: 30
   },
+
   descriptionInput: {
-    borderColor: '#E8E9EA',
-    fontSize: 14,
-    borderWidth: 1,
+
     height: 120,
     padding: 4
   },
+
+  inputStyle: {
+    ...Platform.select({
+      ios: {
+        borderColor: colors.lineColor,
+        borderWidth: 1,
+      }
+    }),
+    fontSize: 14,
+    padding: 4
+  },
+
   InputsContainer: {
     padding: 16
   }

@@ -4,17 +4,21 @@ import {
   StyleSheet,
   View,
   Image,
-  StatusBar
+  StatusBar,
+  TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import colors from '../colors';
 
 export default class SearchButton extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <Icon name="search" size={35} color="#FFF" />
-        </View>
+        <TouchableOpacity onPress={ () => this.props.handlePress() }>
+          <View style={styles.buttonContainer}>
+            <Icon name="search" size={35} color="#FFF" />
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
     height: 54,
     borderRadius: 26,
     shadowOpacity: 0.4,
-    backgroundColor: '#DE2B76',
+    backgroundColor: colors.accent,
     justifyContent: 'center',
     alignItems: 'center'
   }

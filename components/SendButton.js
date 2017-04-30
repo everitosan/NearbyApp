@@ -6,6 +6,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import NavBar from '../components/NavBar';
+import colors from './colors';
 import {Actions} from 'react-native-router-flux';
 
 export default class SendButton extends Component {
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
   },
   sendButton: {
     alignItems: 'center',
-    backgroundColor: '#DE2B76',
+    backgroundColor: colors.accent,
     borderRadius: 50,
     width: 143,
     height: 42,

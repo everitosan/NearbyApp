@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
-
+import colors from './colors';
 export default class ItemRequest extends Component {
   render() {
 
@@ -26,14 +26,17 @@ const styles = StyleSheet.create({
     height: 66
   },
   date: {
-    color: '#DE2B76',
-    textAlign: 'right'
+    color: colors.primaryDark,
+    textAlign: 'right',
+    fontWeight: '100'
   },
   article: {
-    fontWeight: 'bold'
+    fontWeight: 'normal',
+    color : colors.textColor
   },
   description: {
     overflow: 'hidden',
-    height: 20
+    height: 20,
+    fontWeight: '100'
   }
 });

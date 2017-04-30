@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import colors from '../colors';
 
 export default class SearchButton extends Component {
   render() {
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
       width: 0
     },
     elevation: 2,
-    backgroundColor: '#DE2B76',
+    backgroundColor: colors.accent,
     justifyContent: 'center',
     alignItems: 'center'
   }
