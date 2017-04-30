@@ -4,7 +4,8 @@ import {
   View,
   Text,
   TextInput,
-  Platform
+  Platform,
+  ScrollView
 } from 'react-native';
 import NavBar from '../components/NavBar';
 import SendButton from '../components/SendButton';
@@ -15,32 +16,33 @@ export default class SearchView extends Component {
     return (
       <View style={styles.container}>
         <NavBar backButton={true}/>
-        <Text style={styles.instructions} >Describe el producto que estas buscando, de esta forma podrán ayudarte las personas a tu alrededor. Recuerda que no está permitido compartir información de contacto como correos o teléfonos. </Text>
-        <View style={styles.InputsContainer} >
+        <ScrollView>
+          <Text style={styles.instructions} >Describe el producto que estas buscando, de esta forma podrán ayudarte las personas a tu alrededor. Recuerda que no está permitido compartir información de contacto como correos o teléfonos. </Text>
+          <View style={styles.InputsContainer} >
 
-          <View style={styles.InputsRow}>
-            <Text style={styles.InputLabel}> Artículo </Text>
-            <TextInput
-            style={[styles.inputStyle, styles.articleInput]}
-            maxLength={100}
-            multiline={true}
-            underlineColorAndroid= {colors.lineColor}
-            />
+            <View style={styles.InputsRow}>
+              <Text style={styles.InputLabel}> Artículo </Text>
+              <TextInput
+              style={[styles.inputStyle, styles.articleInput]}
+              maxLength={100}
+              multiline={true}
+              underlineColorAndroid= {colors.lineColor}
+              />
+            </View>
+
+            <View style={styles.InputsRow}>
+              <Text style={styles.InputLabel}> Descripción (140 caracteres) </Text>
+              <TextInput
+              style={[styles.inputStyle , styles.descriptionInput]}
+              multiline={true}
+              maxLength={140}
+              underlineColorAndroid= {colors.lineColor}
+              />
+            </View>
+
           </View>
-
-          <View style={styles.InputsRow}>
-            <Text style={styles.InputLabel}> Descripción (140 caracteres) </Text>
-            <TextInput
-            style={[styles.inputStyle , styles.descriptionInput]}
-            multiline={true}
-            maxLength={140}
-            underlineColorAndroid= {colors.lineColor}
-            />
-          </View>
-
-
-        </View>
-        <SendButton />
+          <SendButton />
+        </ScrollView>
       </View>
     );
   }
