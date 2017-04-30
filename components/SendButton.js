@@ -6,18 +6,14 @@ import {
   TouchableOpacity
 } from 'react-native';
 import NavBar from '../components/NavBar';
+import {Actions} from 'react-native-router-flux';
 
 export default class SendButton extends Component {
-  sendRequest() {
-    console.warn("send request");
-  }
 
   render() {
-
-
     return (
       <View style={styles.sendButtonContainer} >
-        <TouchableOpacity onPress={ () => this.sendRequest() }>
+        <TouchableOpacity onPress={ () => this.props.handlePress() }>
           <View style={styles.sendButton} >
             <Text style={styles.sendButtonText}>
               Enviar
@@ -27,6 +23,10 @@ export default class SendButton extends Component {
       </View>
     );
   }
+}
+
+SendButton.defaultProps = {
+    handlePress: ()=> { console.warn("send request"); Actions.pop(); }
 }
 
 const styles = StyleSheet.create({
