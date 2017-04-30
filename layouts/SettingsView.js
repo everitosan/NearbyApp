@@ -1,27 +1,51 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
+  Text,
   View,
-  Platform
+  Switch,
+  ScrollView,
+  TouchableHighlight
 } from 'react-native';
-import RequestList from '../components/RequestList';
 import NavBar from '../components/NavBar';
-import SearchButtonIos from '../components/ios/SearchButton';
-import SearchButtonAndroid from '../components/android/SearchButton';
+import SectionHeader from '../components/SectionHeader';
+import SettingRow from '../components/SettingRow';
+import ContactData from '../components/ContactData';
 import {Actions} from 'react-native-router-flux';
+import colors from '../components/colors';
 
 export default class SettingsView extends Component {
-
-  goToSearchView() {
-    Actions.search({});
-  }
-
   render() {
+    const userData = {
+      telephone: "5540128869",
+      email: "hi@evesan.rocks",
+      picture: "https://scontent-dft4-2.cdninstagram.com/t51.2885-19/s150x150/17076298_1448529028525613_7344673176019795968_a.jpg"
+    };
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <NavBar settingsButton={false} backButton={true} />
-      </View>
+        <SectionHeader title="Concurrencia" />
+        <SettingRow concept="Mantener la búsqueda hasta seleccionar un vendedor." />
+
+        <SectionHeader title="Notificaciones" />
+        <SettingRow concept="Recibir de solicitantes" />
+
+        <SectionHeader title="Datos de contacto" />
+        <ContactData data = {userData} />
+
+        <SectionHeader title="Paquete" />
+        <SettingRow concept="Usuario Premium" />
+
+        <SectionHeader title="Legal" />
+        <View style={styles.legalContainer} >
+          <TouchableHighlight>
+            <Text style={[styles.links, {paddingBottom: 10}]}> Aviso de privacidad </Text>
+          </TouchableHighlight>
+          <TouchableHighlight>
+            <Text style={styles.links}> Términos del servicio </Text>
+          </TouchableHighlight>
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -29,8 +53,15 @@ export default class SettingsView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+  },
+  legalContainer: {
+    padding: 16
+  },
+  links: {
+    fontSize: 16,
+    fontWeight: '100',
+    color: colors.accent2
   }
 
 });
