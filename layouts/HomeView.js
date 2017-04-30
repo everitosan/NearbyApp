@@ -3,8 +3,7 @@ import {
   AppRegistry,
   StyleSheet,
   View,
-  Platform,
-  TouchableOpacity
+  Platform
 } from 'react-native';
 import RequestList from '../components/RequestList';
 import NavBar from '../components/NavBar';
@@ -14,7 +13,7 @@ import {Actions} from 'react-native-router-flux';
 
 export default class HomeView extends Component {
 
-  handlePress() {
+  goToSearchView() {
     Actions.search({});
   }
 
@@ -23,15 +22,13 @@ export default class HomeView extends Component {
       <View style={styles.container}>
         <NavBar/>
         <RequestList></RequestList>
-        <TouchableOpacity onPress={ () => this.handlePress() }>
-          {
-            (Platform.OS === 'ios') ? (
-              <SearchButtonIos/>
-            ) : (
-              <SearchButtonAndroid/>
-            )
-          }
-        </TouchableOpacity>
+        {
+          (Platform.OS === 'ios') ? (
+            <SearchButtonIos handlePress={ () => this.goToSearchView() }/>
+          ) : (
+            <SearchButtonAndroid handlePress={ () => this.goToSearchView() }/>
+          )
+        }
       </View>
     );
   }

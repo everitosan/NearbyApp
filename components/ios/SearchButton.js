@@ -4,7 +4,7 @@ import {
   StyleSheet,
   View,
   Image,
-  StatusBar
+  TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
@@ -12,12 +12,18 @@ export default class SearchButton extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <Icon name="search" size={35} color="#FFF" />
-        </View>
+        <TouchableOpacity onPress={ () => this.props.handlePress() }>
+          <View style={styles.buttonContainer}>
+            <Icon name="search" size={35} color="#FFF" />
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
+}
+
+SearchButton.defaultProps  = {
+  handlePress : () => {console.warn("Should pass a function")}
 }
 
 const styles = StyleSheet.create({
