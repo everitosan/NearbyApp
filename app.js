@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import HomeView from './layouts/HomeView';
 import SearchView from './layouts/SearchView';
+import SettingsView from './layouts/SettingsView';
 import {Scene, Router} from 'react-native-router-flux';
 
 export default class nearbyApp extends Component {
@@ -15,6 +16,7 @@ export default class nearbyApp extends Component {
         <Scene key="root">
           <Scene key="home" component={HomeView} hideNavBar={true}/>
           <Scene key="search" component={SearchView} hideNavBar={true}/>
+          <Scene key="settings" component={SettingsView} hideNavBar={true}/>
         </Scene>
       </Router>
     );

@@ -22,6 +22,10 @@ export default class NavBar extends Component {
     Actions.pop({});
   }
 
+  goSettings() {
+    Actions.settings({});
+  }
+
   render() {
     return (
       <View style={styles.mainContainer} >
@@ -36,12 +40,22 @@ export default class NavBar extends Component {
           )}
 
           <Image style={styles.logo} source={require('./img/Logo@3x.png')} />
-          <Icon name="cog" size={25} color="#FFF" />
+          { this.props.settingsButton ? (
+            <TouchableOpacity onPress={ ()=> this.goSettings() } >
+            <Icon name="cog" size={25} color="#FFF" />
+            </TouchableOpacity>
+          ):(
+            <Icon name="cog" size={25} color="#262728" />
+          )}
         </View>
       </View>
     );
   }
 }
+
+NavBar.defaultProps = {
+  settingsButton : true
+};
 
 const styles = StyleSheet.create({
   mainContainer: {
