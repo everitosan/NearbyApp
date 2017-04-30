@@ -23,6 +23,8 @@ export default class SearchView extends Component {
             <TextInput
             style={[styles.inputStyle, styles.articleInput]}
             maxLength={100}
+            multiline={true}
+            underlineColorAndroid= {colors.lineColor}
             />
           </View>
 
@@ -32,6 +34,7 @@ export default class SearchView extends Component {
             style={[styles.inputStyle , styles.descriptionInput]}
             multiline={true}
             maxLength={140}
+            underlineColorAndroid= {colors.lineColor}
             />
           </View>
 
@@ -77,8 +80,8 @@ const styles = StyleSheet.create({
   inputStyle: {
     ...Platform.select({
       ios: {
-        borderColor: colors.lineColor,
-        borderWidth: 1,
+        borderBottomColor: colors.lineColor,
+        borderBottomWidth: 1,
       }
     }),
     fontSize: 14,
