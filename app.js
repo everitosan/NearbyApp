@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View
 } from 'react-native';
+import LoginView from './layouts/LoginView';
 import HomeView from './layouts/HomeView';
 import SearchView from './layouts/SearchView';
 import SettingsView from './layouts/SettingsView';
@@ -14,6 +15,7 @@ export default class nearbyApp extends Component {
   render() {
     return (
       <Router>
+        <Scene key="login" component={LoginView} hideNavBar={true}/>
         <Scene key="root">
           <Scene key="home" component={HomeView} hideNavBar={true}/>
           <Scene key="search" component={SearchView} hideNavBar={true}/>
