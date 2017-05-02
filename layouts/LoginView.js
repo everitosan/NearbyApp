@@ -28,6 +28,29 @@ export default class LoginView extends Component {
     Actions.root({});
   }
 
+  authenticateUser() {
+    AccessToken.getCurrentAccessToken().then(
+      (data) => {
+        //Should get facebook info and use authUser post endpoint
+        this.goToHomeView();
+      }
+    )
+  }
+
+  handleLogin = (error, result) => {
+    if (error) {
+      alert("login has error: " + result.error);
+    } else if (result.isCancelled) {
+      alert("login is cancelled.");
+    } else {
+      this.authenticateUser();
+    }
+  };
+
+  componentWillMount() {
+    this.authenticateUser();
+  }
+
   render() {
     return (
       <Image style={styles.container} source={require("../components/img/login.jpg")}>
@@ -37,22 +60,7 @@ export default class LoginView extends Component {
 
           <LoginButton
             readPermissions={["public_profile"]}
-            onLoginFinished={
-              (error, result) => {
-                if (error) {
-                  alert("login has error: " + result.error);
-                } else if (result.isCancelled) {
-                  alert("login is cancelled.");
-                } else {
-                  AccessToken.getCurrentAccessToken().then(
-                    (data) => {
-                      alert(data.accessToken.toString());
-                      this.goToHomeView();
-                    }
-                  )
-                }
-              }
-            }
+            onLoginFinished={ this.handleLogin }
             onLogoutFinished={() => alert("logout.")}/>
         </View>
       </Image>
