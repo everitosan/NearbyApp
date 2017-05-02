@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   settingSwitchContainer : {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center'
   }
 
