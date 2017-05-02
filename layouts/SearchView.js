@@ -41,8 +41,8 @@ export default class SearchView extends Component {
             </View>
 
           </View>
-          <SendButton />
         </ScrollView>
+        <SendButton />
       </View>
     );
   }
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: colors.white
+    backgroundColor: '#FFF'
   },
   instructions: {
     backgroundColor: colors.primary,

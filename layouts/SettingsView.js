@@ -43,9 +43,6 @@ export default class SettingsView extends Component {
           <SectionHeader title="Notificaciones" />
           <SettingRow concept="Recibir de solicitantes" />
 
-          <SectionHeader title="Datos de contacto" />
-          <ContactData data = {userData} />
-
           <SectionHeader title="Paquete" />
           <SettingRow concept="Usuario Premium" />
 
@@ -59,7 +56,7 @@ export default class SettingsView extends Component {
             </TouchableHighlight>
           </View>
           <SectionHeader title="Sesión" />
-          <View style={styles.legalContainer} >
+          <View style={[styles.legalContainer, {alignItems: 'center'}]} >
             <LoginButton
               onLogoutFinished={ loggedOut }/>
           </View>

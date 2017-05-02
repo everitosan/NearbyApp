@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   View,
   Image,
@@ -40,7 +39,9 @@ export default class NavBar extends Component {
           }
 
           { this.props.userButton  &&
-            <Image source={require('./img/userIcon.png')} />
+            <TouchableOpacity onPress={ ()=> Actions.user({}) } >
+              <Image source={require('./img/userIcon.png')} />
+            </TouchableOpacity>
           }
 
 
