@@ -14,7 +14,8 @@ import SearchButtonAndroid from '../components/android/SearchButton';
 import {Actions} from 'react-native-router-flux';
 import FBSDK, {
   LoginButton,
-  AccessToken
+  GraphRequest,
+  GraphRequestManager,
 } from 'react-native-fbsdk';
 
 export default class LoginView extends Component {
@@ -22,19 +23,26 @@ export default class LoginView extends Component {
     super(props);
 
     StatusBar.setBarStyle('light-content', true);
+
+    this.infoRequest = new GraphRequest(
+      '/me?fields=id,name,email,picture.width(100).height(100),verified',
+      null,
+      this._responseInfoCallback,
+    );
   }
 
-  goToHomeView() {
-    Actions.root({});
+  goToHomeView(result) {
+    Actions.root({fbData: result});
+  }
+
+  _responseInfoCallback = (error: ?Object, result: ?Object) => {
+    if(error) return false;
+
+    this.goToHomeView(result);
   }
 
   authenticateUser() {
-    AccessToken.getCurrentAccessToken().then(
-      (data) => {
-        //Should get facebook info and use authUser post endpoint
-        this.goToHomeView();
-      }
-    )
+    new GraphRequestManager().addRequest(this.infoRequest).start();
   }
 
   handleLogin = (error, result) => {

@@ -5,8 +5,15 @@ import {
   View,
   Switch,
   ScrollView,
-  TouchableHighlight
+  TouchableHighlight,
+  Platform,
+  BackAndroid
 } from 'react-native';
+
+import FBSDK, {
+  LoginButton
+} from 'react-native-fbsdk';
+
 import NavBar from '../components/NavBar';
 import SectionHeader from '../components/SectionHeader';
 import SettingRow from '../components/SettingRow';
@@ -21,6 +28,11 @@ export default class SettingsView extends Component {
       email: "hi@evesan.rocks",
       picture: "https://scontent-dft4-2.cdninstagram.com/t51.2885-19/s150x150/17076298_1448529028525613_7344673176019795968_a.jpg"
     };
+
+    loggedOut = ()=> {
+      (Platform.OS ==='ios')? Actions.login({}) : BackAndroid.exitApp() ;
+    }
+
     return (
       <View style={styles.container}>
         <NavBar settingsButton={false} backButton={true} />
@@ -45,6 +57,11 @@ export default class SettingsView extends Component {
             <TouchableHighlight>
               <Text style={styles.links}> Términos del servicio </Text>
             </TouchableHighlight>
+          </View>
+          <SectionHeader title="Sesión" />
+          <View style={styles.legalContainer} >
+            <LoginButton
+              onLogoutFinished={ loggedOut }/>
           </View>
         </ScrollView>
       </View>
