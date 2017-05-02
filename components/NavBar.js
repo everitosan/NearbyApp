@@ -8,9 +8,10 @@ import {
   Platform,
   TouchableOpacity
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 import colors from './colors';
 import {Actions} from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -32,21 +33,25 @@ export default class NavBar extends Component {
       <View style={styles.mainContainer} >
         <View style={styles.iosSpacer} ></View>
         <View style={styles.container}>
-          { this.props.backButton ? (
+          { this.props.backButton  &&
             <TouchableOpacity onPress={ ()=> this.goBack() } >
-              <Icon name="angle-left" size={30} color={colors.iconColor} />
+              <Icon name="angle-left" size={35} color={colors.iconColor} />
             </TouchableOpacity>
-          ):(
-            <Icon name="angle-left" size={30} color={colors.primaryDark} />
-          )}
+          }
+
+          { this.props.userButton  &&
+            <Image source={require('./img/userIcon.png')} />
+          }
+
 
           <Image style={styles.logo} source={require('./img/logo2.png')} />
+
           { this.props.settingsButton ? (
             <TouchableOpacity onPress={ ()=> this.goSettings() } >
-            <Icon name="cog" size={25} color={colors.iconColor} />
+              <Image source={require('./img/settingsIcon.png')} />
             </TouchableOpacity>
           ):(
-            <Icon name="cog" size={25} color={colors.primaryDark}  />
+            <Image source={require('./img/settingsIcon.png')} />
           )}
         </View>
       </View>

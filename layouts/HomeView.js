@@ -20,7 +20,7 @@ export default class HomeView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavBar/>
+        <NavBar userButton={true}/>
         <RequestList></RequestList>
         {
           (Platform.OS === 'ios') ? (
