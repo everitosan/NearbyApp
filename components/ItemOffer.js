@@ -30,7 +30,7 @@ ItemOffer.defaultProps = {
     name: "Yanek",
     picture: "https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/16997980_10211993067244493_6672204882497442977_n.jpg?oh=94951db44eb9b73d561591bcd32e947e&oe=59B8B2DB",
     distance: "2km",
-    offer: "120.00"
+    offer: "200.00"
   }
 }
 
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   offerText: {
-    flex: 3,
-
+    flex: 2.5,
     color: colors.textColor
   },
   offer: {
-    flex: 1.8,
+    justifyContent: 'flex-end',
+    flex: 2,
     flexDirection: 'row',
   },
   pictureContainer: {
