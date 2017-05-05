@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import NavBar from '../components/NavBar';
+import ItemOffer from '../components/ItemOffer';
 import colors from '../components/colors';
 
 export default class SearchView extends Component {
@@ -18,6 +19,7 @@ export default class SearchView extends Component {
           <Text style={[styles.detailText, styles.article]}>· {this.props.request.article} </Text>
           <Text style={[styles.detailText, styles.description]}>{this.props.request.description} </Text>
         </View>
+        <ItemOffer/>
       </View>
     );
   }
