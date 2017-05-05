@@ -3,24 +3,50 @@ import {
   View,
   Text,
   StyleSheet,
-  Image
+  Image,
+  TouchableOpacity,
+  Alert,
+  ActionSheetIOS
 } from 'react-native';
 import colors from './colors';
 export default class ItemOffer extends Component {
+  showImage() {
+    console.warn("Should go to view the image");
+  }
+
+  selectOffer() {
+    ActionSheetIOS.showActionSheetWithOptions({
+      title: "Elige a "+ this.props.offer.name + " como vendedor o házle saber tú interés",
+      options: ["Generar interés", "Elegir como vendedor", "Cancel"],
+      cancelButtonIndex: 2
+    }, (buttonIndex) => {
+      this.setState({option: buttonIndex});
+    });
+  }
+
   render() {
-    const {name, picture, distance, offer} = this.props.offer;
+    const {name, picture, distance, offer, articlePicture} = this.props.offer;
     const offerSplit = offer.split(".");
     return (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={() => this.selectOffer()}>
+
         <View style={styles.pictureContainer}>
-          <Image style={styles.picture} source={{uri: picture }}/>
+          {
+            (articlePicture == "")?(
+              <Image style={styles.picture} source={{uri: picture }}/>
+            ): (
+              <TouchableOpacity onPress={()=> this.showImage()}>
+                <Image style={styles.picture} source={{uri: articlePicture }}/>
+              </TouchableOpacity>
+            )
+          }
         </View>
         <Text style={styles.offerText} >{name} a {distance} te ha hecho una oferta de </Text>
         <View style={styles.offer}>
           <Text style={styles.integer}>${ offerSplit[0] }.</Text>
           <Text style={styles.float}>{ offerSplit[1] } </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -30,7 +56,8 @@ ItemOffer.defaultProps = {
     name: "Yanek",
     picture: "https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/16997980_10211993067244493_6672204882497442977_n.jpg?oh=94951db44eb9b73d561591bcd32e947e&oe=59B8B2DB",
     distance: "2km",
-    offer: "200.00"
+    offer: "200.00",
+    articlePicture: "https://scontent-dft4-2.xx.fbcdn.net/v/t31.0-8/13442668_10209532187244031_313275553456575574_o.jpg?oh=d0a496ddbd0a06309809a31210422e87&oe=59BE3264"
   }
 }
 
