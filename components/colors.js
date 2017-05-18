@@ -7,7 +7,8 @@ const colors = {
   'iconColor': '#ECECEC',
   'textColor': '#4F5659',
   'lineColor': '#E8E9EA',
-  'white': '#F2F2F2'
+  'white': '#F2F2F2',
+  'appleBlue': '#0076FF'
 };
 
 export default colors;
