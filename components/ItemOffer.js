@@ -11,12 +11,14 @@ import {
 import colors from './colors';
 import Modal from 'react-native-modal';
 import InteresModal from './InteresModal'
+import CircleButton from './CircleButton';
 
 export default class ItemOffer extends Component {
 
   state = {
     isModalVisible: false,
-    isModalBuyVisible: false
+    isModalBuyVisible: false,
+    isImageModalVisible: false
   }
 
   hideModal = () => {
@@ -28,7 +30,11 @@ export default class ItemOffer extends Component {
   }
 
   showImage() {
-    console.warn("Should go to view the image");
+    this.setState({isImageModalVisible: true});
+  }
+
+  hideImageModal () {
+    this.setState({isImageModalVisible: false});
   }
 
   selectOffer() {
@@ -75,6 +81,13 @@ export default class ItemOffer extends Component {
           <Text style={styles.integer}>${ offerSplit[0] }.</Text>
           <Text style={styles.float}>{ offerSplit[1] } </Text>
         </View>
+
+        <Modal isVisible={this.state.isImageModalVisible} style={{justifyContent: 'center', alignItems: 'center'}} >
+          <Image style={{width: '100%', height: '100%'}} source={{uri: articlePicture}} />
+          <TouchableOpacity onPress={()=> this.hideImageModal()}>
+            <CircleButton text="X" style={{position: 'absolute', left: -20, bottom: 10}} ></CircleButton>
+          </TouchableOpacity>
+        </Modal>
 
         <Modal style={{justifyContent: 'center', alignItems: 'center'}} isVisible={this.state.isModalVisible}>
           <InteresModal ok={ this.hideModal } cancel={  this.hideModal } info={modalInfo} />
