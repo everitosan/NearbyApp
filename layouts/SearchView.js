@@ -10,12 +10,14 @@ import {
 import NavBar from '../components/NavBar';
 import SendButton from '../components/SendButton';
 import colors from '../components/colors';
+import Loader  from '../components/Loader';
 
 export default class SearchView extends Component {
 
   state = {
     location: "",
-    sendPendant : false
+    sendPendant : false,
+    showLoader : false
   }
 
   componentDidMount () {
@@ -34,16 +36,15 @@ export default class SearchView extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.location.latitude !== undefined&&
-        this.state.location.longitude !== undefined &&
-        this.state.sendPendant === true) {
-          console.warn(this.state.location.latitude);
+    if(this.state.sendPendant === true) {
+      if (this.state.location.latitude !== undefined&&
+          this.state.location.longitude !== undefined) {
+          console.warn("fetching");
       }
-      else if (this.state.location.latitude === undefined&&
-          this.state.location.longitude === undefined &&
-          this.state.sendPendant === true) {
-          //should show waiting component 
+      else if (!this.state.showLoader) {
+        this.setState({'showLoader': true});
       }
+    }
   }
 
 
@@ -78,6 +79,9 @@ export default class SearchView extends Component {
           </View>
         </ScrollView>
         <SendButton handlePress = { () => { this.setState({'sendPendant': true}) } }/>
+         {
+           (this.state.showLoader) ? <Loader text="Enviando ..." />: null
+         }
       </View>
     );
   }
