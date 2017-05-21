@@ -12,6 +12,41 @@ import SendButton from '../components/SendButton';
 import colors from '../components/colors';
 
 export default class SearchView extends Component {
+
+  state = {
+    location: "",
+    sendPendant : false
+  }
+
+  componentDidMount () {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({'location':  position.coords });
+      },
+      error => {
+        console.warn("Error: "+error.message);
+      }, {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000
+      }
+    );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.location.latitude !== undefined&&
+        this.state.location.longitude !== undefined &&
+        this.state.sendPendant === true) {
+          console.warn(this.state.location.latitude);
+      }
+      else if (this.state.location.latitude === undefined&&
+          this.state.location.longitude === undefined &&
+          this.state.sendPendant === true) {
+          //should show waiting component 
+      }
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -42,7 +77,7 @@ export default class SearchView extends Component {
 
           </View>
         </ScrollView>
-        <SendButton />
+        <SendButton handlePress = { () => { this.setState({'sendPendant': true}) } }/>
       </View>
     );
   }
