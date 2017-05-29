@@ -20,7 +20,11 @@ function loginUser(user) {
     .catch( err => err);
 }
 
-
+function getMyInfo(id) {
+  return fetch(URL+"/user/"+id)
+    .then( response => response.json())
+    .catch(err => err.json());
+}
 function getMyRequests(id) {
   return fetch(URL+"/user/"+id)
     .then( response => response.json())
@@ -51,4 +55,4 @@ function postMyRequest(id, request) {
   });
 }
 
-export {loginUser, getMyRequests, updateMyCoords, postMyRequest};
+export {loginUser, getMyRequests, updateMyCoords, postMyRequest, getMyInfo};

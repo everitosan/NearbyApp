@@ -11,7 +11,8 @@ import NavBar from '../components/NavBar';
 import SearchButtonIos from '../components/ios/SearchButton';
 import SearchButtonAndroid from '../components/android/SearchButton';
 import {Actions} from 'react-native-router-flux';
-import {getMyRequests} from '../components/api/client';
+import {getMyRequests, getMyInfo} from '../components/api/client';
+import Realm from 'realm';
 
 export default class HomeView extends Component {
 
@@ -24,7 +25,31 @@ export default class HomeView extends Component {
   }
 
   componentDidMount() {
-    this.getDataSource();
+    const UserSchema = {
+      name: 'User',
+      properties: {
+        id: 'string',
+        name: 'string',
+        email: 'string',
+        picture: 'string',
+        telephone: {type: 'string', optional: true}
+      }
+    };
+
+    let realm = new Realm({
+      schema: [UserSchema]
+    });
+
+    getMyInfo(this.props.userInfo._id)
+      .then(info => {
+        realm.write(() => {
+          let user = realm.create('User', {id: info._id, name: info.name, email: info.email, picture: info.picture});
+        });
+        this.setState({'my_requests': info.requests});
+      })
+      .catch(err => {
+        Alert.alert("Error", JSON.stringify(err));
+      });
   }
 
   getDataSource = () => {
