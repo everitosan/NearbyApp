@@ -5,19 +5,31 @@ import {
   Text,
   TextInput,
   Platform,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import NavBar from '../components/NavBar';
 import SendButton from '../components/SendButton';
 import colors from '../components/colors';
 import Loader  from '../components/Loader';
+import {Actions} from 'react-native-router-flux';
+import {
+  updateMyCoords,
+  postMyRequest
+} from '../components/api/client';
 
 export default class SearchView extends Component {
 
   state = {
     location: "",
     sendPendant : false,
-    showLoader : false
+    showLoader : false,
+    article: '',
+    description: ''
+  }
+
+  messages = {
+    errorMessage: ''
   }
 
   componentDidMount () {
@@ -39,7 +51,13 @@ export default class SearchView extends Component {
     if(this.state.sendPendant === true) {
       if (this.state.location.latitude !== undefined&&
           this.state.location.longitude !== undefined) {
-          console.warn("fetching");
+          updateMyCoords(this.props._id, this.state.location.latitude, this.state.location.longitude)
+            .then( response => {
+              this.postRequest();
+            })
+            .catch( err => {
+              Alert.alert("Error", JSON.stringify(err));
+            });
       }
       else if (!this.state.showLoader) {
         this.setState({'showLoader': true});
@@ -47,6 +65,42 @@ export default class SearchView extends Component {
     }
   }
 
+  tester () {
+    if (this.state.article === '') {
+      this.messages.errorMessage ='El campo artículo no puede estar vacio.';
+      return false;
+    } else if ( this.state.description === '') {
+      this.messages.errorMessage ='El campo descripción no puede estar vacio.';
+      return false;
+    } else {
+      if(this.findNotAllowed(this.state.article)) {
+        this.messages.errorMessage ='El campo artículo contiene informacíon no válida.';
+        return false;
+      } else if (this.findNotAllowed(this.state.description)) {
+        this.messages.errorMessage ='El campo descripción contiene informacíon no válida.';
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  warnMessage() {
+    console.warn(this.messages.errorMessage);
+  }
+
+  postRequest() {
+    postMyRequest(this.props._id, this.state)
+      .then(response => {
+        this.props._return();
+        Actions.pop();
+      })
+      .catch(err => console.warn("Error: "+err.message) );
+  }
+
+  findNotAllowed(m_text) {
+    const joined = m_text.replace(/\s/g,'');
+  }
 
   render() {
     return (
@@ -63,6 +117,10 @@ export default class SearchView extends Component {
               maxLength={100}
               multiline={true}
               underlineColorAndroid= {colors.lineColor}
+              value={this.state.article}
+              onChangeText = {(text) => {
+                this.setState({'article': text});
+              } }
               />
             </View>
 
@@ -73,15 +131,22 @@ export default class SearchView extends Component {
               multiline={true}
               maxLength={140}
               underlineColorAndroid= {colors.lineColor}
+              value={this.state.description}
+              onChangeText = {(text) => {
+                this.setState({'description': text});
+              } }
               />
             </View>
 
           </View>
         </ScrollView>
-        <SendButton handlePress = { () => { this.setState({'sendPendant': true}) } }/>
-         {
-           (this.state.showLoader) ? <Loader text="Enviando ..." />: null
-         }
+        <SendButton handlePress = { () => {
+          (this.tester())? this.setState({'sendPendant': true}): this.warnMessage();
+        }}/>
+
+        {
+          (this.state.showLoader) ? <Loader text="Enviando ..." />: null
+        }
       </View>
     );
   }

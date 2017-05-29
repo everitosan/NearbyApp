@@ -3,25 +3,45 @@ import {
   AppRegistry,
   StyleSheet,
   View,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import RequestList from '../components/RequestList';
 import NavBar from '../components/NavBar';
 import SearchButtonIos from '../components/ios/SearchButton';
 import SearchButtonAndroid from '../components/android/SearchButton';
 import {Actions} from 'react-native-router-flux';
+import {getMyRequests} from '../components/api/client';
 
 export default class HomeView extends Component {
 
+  state= {
+    my_requests : []
+  }
+
   goToSearchView() {
-    Actions.search({});
+    Actions.search({_id: this.props.userInfo._id, _return: this.getDataSource});
+  }
+
+  componentDidMount() {
+    this.getDataSource();
+  }
+
+  getDataSource = () => {
+    getMyRequests(this.props.userInfo._id)
+      .then( requests => {
+        this.setState({'my_requests': requests});
+      })
+      .catch(err => {
+        Alert.alert("Error", JSON.stringify(err));
+      });
   }
 
   render() {
     return (
       <View style={styles.container}>
         <NavBar userButton={true}/>
-        <RequestList></RequestList>
+        <RequestList requests={this.state.my_requests} ></RequestList>
         {
           (Platform.OS === 'ios') ? (
             <SearchButtonIos handlePress={ () => this.goToSearchView() }/>
@@ -37,7 +57,6 @@ export default class HomeView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: '#FFFFFF'
   }
 

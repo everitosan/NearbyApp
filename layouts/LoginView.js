@@ -17,6 +17,7 @@ import FBSDK, {
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
+import {loginUser} from '../components/api/client';
 
 export default class LoginView extends Component {
   constructor(props) {
@@ -31,14 +32,13 @@ export default class LoginView extends Component {
     );
   }
 
-  goToHomeView(result) {
-    Actions.root({fbData: result});
-  }
-
   _responseInfoCallback = (error: ?Object, result: ?Object) => {
     if(error) return false;
-
-    this.goToHomeView(result);
+    loginUser(result)
+      .then( userInfo => {
+        Actions.root({ userInfo :userInfo});
+      })
+      .catch(err => { console.warn(err) });
   }
 
   authenticateUser() {
@@ -67,7 +67,7 @@ export default class LoginView extends Component {
         <View style={styles.loginContainer}>
 
           <LoginButton
-            readPermissions={["public_profile"]}
+            readPermissions={["public_profile", "email"]}
             onLoginFinished={ this.handleLogin }
             onLogoutFinished={() => alert("logout.")}/>
         </View>
