@@ -7,15 +7,16 @@ import {
 
 import NavBar from '../components/NavBar';
 import ItemOffer from '../components/ItemOffer';
+import Date from '../components/Date';
 import colors from '../components/colors';
 
-export default class SearchView extends Component {
+export default class RequestDetailView extends Component {
   render() {
     return (
       <View style={styles.container}>
         <NavBar backButton={true}/>
         <View style={styles.detailContainer}>
-          <Text style={[styles.date]}>{this.props.request.date} </Text>
+          <Date style={styles.date} date={this.props.request.date} />
           <Text style={[styles.detailText, styles.article]}>· {this.props.request.article} </Text>
           <Text style={[styles.detailText, styles.description]}>{this.props.request.description} </Text>
         </View>

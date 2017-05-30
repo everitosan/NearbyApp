@@ -5,24 +5,14 @@ import {
   StyleSheet
 } from 'react-native';
 import colors from './colors';
-import moment from 'moment';
+import Date from './Date';
 export default class ItemRequest extends Component {
-
-  state= {
-    date: '00'
-  }
-
-  componentDidMount() {
-    const parsedDate = moment(this.props.request.date).format("DD-MMM-YYYY");
-    this.setState({date: parsedDate});
-  }
 
   render() {
 
     return (
       <View style={styles.container}>
-
-        <Text style={styles.date}> {this.state.date } </Text>
+        <Date date={this.props.request.date} style={styles.date} />
         <Text style={styles.article}> · {this.props.request.article} </Text>
 
         <Text style={styles.description}> {this.props.request.description} </Text>
