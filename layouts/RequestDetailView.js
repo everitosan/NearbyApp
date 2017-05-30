@@ -7,10 +7,26 @@ import {
 
 import NavBar from '../components/NavBar';
 import ItemOffer from '../components/ItemOffer';
+import ItemOfferList from '../components/ItemOfferList';
 import Date from '../components/Date';
 import colors from '../components/colors';
+import {getItemOffers} from '../components/api/client';
 
 export default class RequestDetailView extends Component {
+  state = {
+    offers: []
+  }
+
+  componentDidMount() {
+    getItemOffers(this.props.request._id)
+      .then(response => {
+        this.setState({'offers': response});
+      })
+      .catch(err => {
+        Alert.alert("Err", err.message());
+      });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -20,7 +36,7 @@ export default class RequestDetailView extends Component {
           <Text style={[styles.detailText, styles.article]}>· {this.props.request.article} </Text>
           <Text style={[styles.detailText, styles.description]}>{this.props.request.description} </Text>
         </View>
-        <ItemOffer/>
+        <ItemOfferList offers={this.state.offers } />
       </View>
     );
   }

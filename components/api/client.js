@@ -55,4 +55,11 @@ function postMyRequest(id, request) {
   });
 }
 
-export {loginUser, getMyRequests, updateMyCoords, postMyRequest, getMyInfo};
+function getItemOffers(id) {
+  return fetch(URL+"/request/"+id)
+    .then(request => request.json())
+    .then(request => request.offers)
+    .catch(err => err.json());
+}
+
+export {loginUser, getMyRequests, updateMyCoords, postMyRequest, getMyInfo, getItemOffers};

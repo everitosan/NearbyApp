@@ -14,7 +14,6 @@ export default class ItemRequest extends Component {
       <View style={styles.container}>
         <Date date={this.props.request.date} style={styles.date} />
         <Text style={styles.article}> · {this.props.request.article} </Text>
-
         <Text style={styles.description}> {this.props.request.description} </Text>
       </View>
     );
