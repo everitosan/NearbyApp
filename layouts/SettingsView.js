@@ -20,16 +20,18 @@ import SettingRow from '../components/SettingRow';
 import ContactData from '../components/ContactData';
 import {Actions} from 'react-native-router-flux';
 import colors from '../components/colors';
+import {getManager} from '../components/realmManager';
 
 export default class SettingsView extends Component {
   render() {
-    const userData = {
-      telephone: "5540128869",
-      email: "hi@evesan.rocks",
-      picture: "https://scontent-dft4-2.cdninstagram.com/t51.2885-19/s150x150/17076298_1448529028525613_7344673176019795968_a.jpg"
-    };
 
     loggedOut = ()=> {
+      let realm = getManager();
+      let user = realm.objects("User");
+      realm.write( ()=> {
+        realm.delete(user);
+      });
+
       (Platform.OS ==='ios')? Actions.login({}) : BackAndroid.exitApp() ;
     }
 

@@ -10,10 +10,21 @@ import {
 import NavBar from '../components/NavBar';
 import colors from '../components/colors';
 import ContactDataRow from '../components/ContactDataRow';
+import {getManager} from '../components/realmManager';
 
 export default class UserView extends Component {
+
+  state = {
+    data: {}
+  }
+
+  componentDidMount() {
+    let realm = getManager();
+    this.setState({'data': realm.objects('User')[0] });
+  }
+
   render() {
-    const {picture, name, email, telephone, premium} = this.props.data;
+    const {picture, name, email, telephone, premium} = this.state.data;
     return (
       <View style={styles.container}>
         <NavBar backButton={true}/>
@@ -32,17 +43,6 @@ export default class UserView extends Component {
     );
   }
 }
-
-UserView.defaultProps={
-  data: {
-    telephone: "58490378",
-    email: "aol@aol.com",
-    name: "Eve San",
-    picture: "https://scontent-dft4-2.cdninstagram.com/t51.2885-19/s150x150/17076298_1448529028525613_7344673176019795968_a.jpg",
-    premium: true
-  }
-}
-
 
 const styles = StyleSheet.create({
 

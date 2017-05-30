@@ -12,7 +12,7 @@ import SearchButtonIos from '../components/ios/SearchButton';
 import SearchButtonAndroid from '../components/android/SearchButton';
 import {Actions} from 'react-native-router-flux';
 import {getMyRequests, getMyInfo} from '../components/api/client';
-import Realm from 'realm';
+import {getManager} from '../components/realmManager';
 
 export default class HomeView extends Component {
 
@@ -25,31 +25,22 @@ export default class HomeView extends Component {
   }
 
   componentDidMount() {
-    const UserSchema = {
-      name: 'User',
-      properties: {
-        id: 'string',
-        name: 'string',
-        email: 'string',
-        picture: 'string',
-        telephone: {type: 'string', optional: true}
-      }
-    };
-
-    let realm = new Realm({
-      schema: [UserSchema]
-    });
-
-    getMyInfo(this.props.userInfo._id)
-      .then(info => {
-        realm.write(() => {
-          let user = realm.create('User', {id: info._id, name: info.name, email: info.email, picture: info.picture});
+    let realm = getManager();
+    let users = realm.objects("User");
+    if (users.length === 0) {
+      getMyInfo(this.props.userInfo._id)
+        .then(info => {
+          realm.write(() => {
+            let user = realm.create('User', info);
+            this.setState({'my_requests': info.requests});
+          });
+        })
+        .catch(err => {
+          Alert.alert("Error", JSON.stringify(err));
         });
-        this.setState({'my_requests': info.requests});
-      })
-      .catch(err => {
-        Alert.alert("Error", JSON.stringify(err));
-      });
+    } else {
+      this.getDataSource();
+    }
   }
 
   getDataSource = () => {
